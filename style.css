@@ -5,8 +5,11 @@
 }
 
 :root {
-  --primary-color: dodgerblue;
-  --select-color: dodgerblue;
+  --primary-color: #fea604;
+  --select-color: #fea604;
+  --left-color: #ff7310;
+  --right-color: #fcbd00;
+  --text-color: #0f86da;
   --success: rgb(15, 158, 2);
   --danger: rgb(214, 23, 23);
 }
@@ -18,27 +21,34 @@ body {
   display: flex;
   justify-content: center;
   height: 100vh;
-  background: #e8e8e8;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23161616' fill-opacity='0.1'%3E%3Cpath fill-rule='evenodd' d='M11 0l5 20H6l5-20zm42 31a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM0 72h40v4H0v-4zm0-8h31v4H0v-4zm20-16h20v4H20v-4zM0 56h40v4H0v-4zm63-25a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM53 41a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-30 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-28-8a5 5 0 0 0-10 0h10zm10 0a5 5 0 0 1-10 0h10zM56 5a5 5 0 0 0-10 0h10zm10 0a5 5 0 0 1-10 0h10zm-3 46a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM21 0l5 20H16l5-20zm43 64v-4h-4v4h-4v4h4v4h4v-4h4v-4h-4zM36 13h4v4h-4v-4zm4 4h4v4h-4v-4zm-4 4h4v4h-4v-4zm8-8h4v4h-4v-4z'/%3E%3C/g%3E%3C/svg%3E");
+  /* background: #e8e8e8; */
+  /* background: url(https://tympanus.net/Development/ImageToContent/7.87dc6e8b.jpg) no-repeat center center fixed; */
+  /* background: url(https://tympanus.net/Development/ImageToContent/8.0bda5054.jpg) no-repeat center center fixed; */
+  background: url(bg.jpg) no-repeat center center fixed;
+  background-size: cover;
+
+  /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23161616' fill-opacity='0.1'%3E%3Cpath fill-rule='evenodd' d='M11 0l5 20H6l5-20zm42 31a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM0 72h40v4H0v-4zm0-8h31v4H0v-4zm20-16h20v4H20v-4zM0 56h40v4H0v-4zm63-25a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM53 41a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-30 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-28-8a5 5 0 0 0-10 0h10zm10 0a5 5 0 0 1-10 0h10zM56 5a5 5 0 0 0-10 0h10zm10 0a5 5 0 0 1-10 0h10zm-3 46a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM21 0l5 20H16l5-20zm43 64v-4h-4v4h-4v4h4v4h4v-4h4v-4h-4zM36 13h4v4h-4v-4zm4 4h4v4h-4v-4zm-4 4h4v4h-4v-4zm8-8h4v4h-4v-4z'/%3E%3C/g%3E%3C/svg%3E"); */
 }
 
 .game-container {
-  border: 1px solid black;
+  border: 4px solid white;
   box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.5);
   width: 530px;
   height: 750px;
   position: relative;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(2, 21, 126, 0.75);
+  /* background: rgba(0, 0, 0, 0.85); */
   user-select: none;
   margin-top: 100px;
 }
 
 .header {
   background: var(--primary-color);
+  background-image: linear-gradient(to right, #ff7310, #ff8700, #ff9900, #feab00, #fcbd00);
   color: white;
   font-family: Oxanium, sans-serif;
   font-size: 24px;
-  text-shadow: 1px 2px 2px black;
+  /* text-shadow: 1px 2px 2px black; */
   letter-spacing: 2px;
   height: 100px;
   display: flex;
@@ -49,6 +59,7 @@ body {
 .card {
   margin: 5px auto 10px;
   height: 600px;
+  color: var(--text-color);
 }
 
 /* Splash Page -------------------- */
@@ -72,7 +83,7 @@ input[type="radio"] {
   height: 75px;
   margin: 25px;
   cursor: pointer;
-  border: 2px solid black;
+  border: 2px solid var(--text-color);
   border-radius: 5px;
 }
 
@@ -84,7 +95,7 @@ label {
 }
 
 .selected-label {
-  background: var(--select-color);
+  background: var(--text-color);
   color: white;
 }
 
@@ -109,7 +120,8 @@ label {
 }
 
 .selection-footer {
-  top: 134px;
+  /* top: 134px; */
+  top: 130px;
 }
 
 /* Game Page -------------------------- */
@@ -160,7 +172,8 @@ label {
 .selection-footer {
   width: 100%;
   height: 90px;
-  background: rgba(0, 0, 0, 1);
+  /* background: rgba(0, 0, 0, 1); */
+  background: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -307,6 +320,7 @@ button:active {
 
   .selection-footer {
     top: 183px;
+    /* top: 180px; */
   }
 }
 
