@@ -34,6 +34,7 @@ const playAgainBtn = document.querySelector(".play-again");
 let questionAmount = 0;
 let equationsArray = [];
 let playerGuessArray = [];
+let bestScoreArray = [];
 
 // Game Page
 let firstNumber = 0;
@@ -47,10 +48,56 @@ let timePlayed = 0; // incremented every 10th of a second
 let baseTime = 0; // final time
 let penaltyTime = 0;
 let finalTime = 0;
-let finalTimeDisplay = "0.0s";
+let finalTimeDisplay = "0.0";
 
 // Scroll
 let valueY = 0;
+
+// Refresh Splash Page Best Scores
+function bestScoresToDOM() {
+  bestScores.forEach((bestscore, index) => {
+    bestscore.textContent = `${bestScoreArray[index].bestScore}s`;
+  });
+}
+
+// Check Local Storage for Best Scores, set bestScoreArray
+function getSavedBestScores() {
+  if (localStorage.getItem("bestScores")) {
+    console.log("bestScores found in Local Storage");
+    bestScoreArray = JSON.parse(localStorage.bestScores);
+  } else {
+    console.log("bestScores not found in Local Storage");
+    bestScoreArray = [
+      { questions: 10, bestScore: finalTimeDisplay },
+      { questions: 25, bestScore: finalTimeDisplay },
+      { questions: 50, bestScore: finalTimeDisplay },
+      { questions: 99, bestScore: finalTimeDisplay },
+    ];
+
+    localStorage.setItem("bestScores", JSON.stringify(bestScoreArray));
+  }
+  bestScoresToDOM();
+}
+
+// Update Best Score Array
+function updateBestScore() {
+  console.log(bestScoreArray);
+  bestScoreArray.forEach((score, index) => {
+    // Select the correct Best Score to Update
+    if (questionAmount == score.questions) {
+      // Return Best Score
+      const savedBestScore = Number(bestScoreArray[index].bestScore);
+      // Update if the new final score is less or replacing zero
+      if (savedBestScore === 0 || savedBestScore > finalTime) {
+        bestScoreArray[index].bestScore = finalTimeDisplay;
+        console.log("update***");
+      }
+    }
+  });
+  // Update Splash Page
+  bestScoresToDOM();
+  localStorage.setItem("bestScores", JSON.stringify(bestScoreArray));
+}
 
 // Reset Game. When play again button is clicked.
 function playAgain() {
@@ -85,6 +132,7 @@ function scoresToDOM() {
   // Scroll to Top, go to Score page
   itemContainer.scrollTo({ top: 0, behavior: "instant" });
   showScorePage();
+  updateBestScore();
 }
 
 // Stop Timer, Process Results, go to Score Page
@@ -241,7 +289,7 @@ function showCountdown() {
   countdownPage.hidden = false;
   countdownStart();
   populateGamePage();
-  setTimeout(showGamePage, 400);
+  setTimeout(showGamePage, 4000);
 }
 
 // Get the value from selected radion button
@@ -280,3 +328,6 @@ startForm.addEventListener("click", () => {
 
 startForm.addEventListener("submit", selectQuestionAmount);
 gamePage.addEventListener("click", startTimer);
+
+// On Load
+getSavedBestScores();
