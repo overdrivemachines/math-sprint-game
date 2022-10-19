@@ -63,10 +63,8 @@ function bestScoresToDOM() {
 // Check Local Storage for Best Scores, set bestScoreArray
 function getSavedBestScores() {
   if (localStorage.getItem("bestScores")) {
-    console.log("bestScores found in Local Storage");
     bestScoreArray = JSON.parse(localStorage.bestScores);
   } else {
-    console.log("bestScores not found in Local Storage");
     bestScoreArray = [
       { questions: 10, bestScore: finalTimeDisplay },
       { questions: 25, bestScore: finalTimeDisplay },
@@ -81,7 +79,6 @@ function getSavedBestScores() {
 
 // Update Best Score Array
 function updateBestScore() {
-  console.log(bestScoreArray);
   bestScoreArray.forEach((score, index) => {
     // Select the correct Best Score to Update
     if (questionAmount == score.questions) {
@@ -90,7 +87,6 @@ function updateBestScore() {
       // Update if the new final score is less or replacing zero
       if (savedBestScore === 0 || savedBestScore > finalTime) {
         bestScoreArray[index].bestScore = finalTimeDisplay;
-        console.log("update***");
       }
     }
   });
@@ -138,8 +134,6 @@ function scoresToDOM() {
 // Stop Timer, Process Results, go to Score Page
 function checkTime() {
   if (playerGuessArray.length == questionAmount) {
-    console.log("player guess array", playerGuessArray);
-    console.log("equations:", equationsArray);
     clearInterval(timer);
 
     // Check for wrong guesses and add penalty time
@@ -148,13 +142,12 @@ function checkTime() {
       if (playerGuessArray[i] !== equationsArray[i].evaluated) {
         // Incorrect Guess, there is a penalty
         penaltyTime += 0.5;
-        console.log("penalty for", i);
       } else {
         // Correct Guess, No Penalty
       }
     }
     finalTime = timePlayed + penaltyTime;
-    console.log("time played", timePlayed, "penalty:", penaltyTime, "final:", finalTime);
+    // console.log("time played", timePlayed, "penalty:", penaltyTime, "final:", finalTime);
     scoresToDOM();
   }
 }
@@ -203,8 +196,8 @@ function createEquations() {
   const correctEquations = getRandomInt(questionAmount);
   // Set amount of wrong equations
   const wrongEquations = questionAmount - correctEquations;
-  console.log("correct equations: ", correctEquations);
-  console.log("wrong equations: ", wrongEquations);
+  // console.log("correct equations: ", correctEquations);
+  // console.log("wrong equations: ", wrongEquations);
   // Loop through, multiply random numbers up to 9, push to array
   for (let i = 0; i < correctEquations; i++) {
     firstNumber = getRandomInt(10);
@@ -271,16 +264,19 @@ function populateGamePage() {
 
 // Displays 3, 2, 1, GO!
 function countdownStart() {
-  countdown.textContent = 3;
-  setTimeout(() => {
-    countdown.textContent = 2;
+  let count = 3;
+  countdown.textContent = count;
+  const timeCountDown = setInterval(() => {
+    count--;
+    if (count === 0) {
+      countdown.textContent = "Go!";
+    } else if (count === -1) {
+      showGamePage();
+      clearInterval(timeCountDown);
+    } else {
+      countdown.textContent = count;
+    }
   }, 1000);
-  setTimeout(() => {
-    countdown.textContent = 1;
-  }, 2000);
-  setTimeout(() => {
-    countdown.textContent = "GO!";
-  }, 3000);
 }
 
 // Navigate from Splash Page to Countdown Page
@@ -289,7 +285,7 @@ function showCountdown() {
   countdownPage.hidden = false;
   countdownStart();
   populateGamePage();
-  setTimeout(showGamePage, 4000);
+  // setTimeout(showGamePage, 4000);
 }
 
 // Get the value from selected radion button
@@ -307,7 +303,6 @@ function getRadioValue() {
 function selectQuestionAmount(e) {
   e.preventDefault();
   questionAmount = getRadioValue();
-  console.log("questionAmount = ", questionAmount);
   if (questionAmount) {
     showCountdown();
   }
